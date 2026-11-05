@@ -1,0 +1,288 @@
+/* =========================================================
+   ESPAÇO VIP | Site demonstrativo
+   Para mudar as cores do site inteiro, edite só o bloco :root
+   ========================================================= */
+
+:root {
+  --preto: #000000;
+  --grafite: #151412;      /* fundo das seções claras (na verdade escuras, em tom quente) */
+  --linha: #2e2a22;        /* divisórias e bordas discretas */
+  --dourado: #c8a45d;
+  --dourado-claro: #e3c98d;
+  --marfim: #f3ede2;       /* texto principal */
+  --neutro: #b3ab9c;       /* texto secundário */
+
+  --fonte-titulo: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --fonte-texto: "Jost", "Segoe UI", Arial, sans-serif;
+
+  --espaco-secao: clamp(4.5rem, 9vw, 8rem);
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  margin: 0;
+  background: var(--preto);
+  color: var(--marfim);
+  font-family: var(--fonte-texto);
+  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 500; line-height: 1.1; margin: 0; }
+h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
+h3 { font-size: 1.5rem; }
+p { margin: 0 0 1em; color: var(--neutro); max-width: 62ch; }
+address { font-style: normal; color: var(--marfim); line-height: 1.9; margin: 1.5rem 0; }
+
+:focus-visible { outline: 2px solid var(--dourado); outline-offset: 3px; }
+
+.container { width: min(1160px, 100% - 2.5rem); margin-inline: auto; }
+
+/* ---------- Seções ---------- */
+.secao { padding-block: var(--espaco-secao); }
+.secao--clara { background: var(--grafite); }
+
+.titulo { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.titulo h2 { margin-bottom: 0.75rem; }
+.titulo p { margin: 0; }
+.titulo--centro { text-align: center; }
+.titulo--centro p { margin-inline: auto; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.95rem 1.9rem;
+  background: var(--dourado);
+  color: var(--preto);
+  border: 1px solid var(--dourado);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-align: center;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.btn:hover { background: var(--dourado-claro); border-color: var(--dourado-claro); }
+.btn--ghost { background: transparent; color: var(--marfim); border-color: var(--dourado); }
+.btn--ghost:hover { background: var(--dourado); color: var(--preto); }
+.btn--sm { padding: 0.6rem 1.2rem; font-size: 0.875rem; }
+
+.link {
+  color: var(--dourado);
+  border-bottom: 1px solid var(--dourado);
+  padding-bottom: 2px;
+  transition: color 0.25s, border-color 0.25s;
+}
+.link:hover { color: var(--dourado-claro); border-color: var(--dourado-claro); }
+
+/* ---------- Imagens e placeholders ---------- */
+.media {
+  position: relative;
+  aspect-ratio: var(--ratio, 4/3);
+  overflow: hidden;
+  background: var(--grafite);
+}
+.media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.media--arco { border-radius: 999px 999px 0 0; }   /* formato de arco, usado nos profissionais */
+
+.ph {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  border: 1px solid var(--linha);
+  background: repeating-linear-gradient(135deg, #1a1814 0 14px, #17150f 14px 28px);
+  color: var(--dourado);
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* ---------- Cabeçalho ---------- */
+.header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+.header.rolou { background: rgba(0, 0, 0, 0.92); border-color: var(--linha); }
+.header__inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+
+.logo { display: flex; flex-direction: column; line-height: 1.1; }
+.logo__nome { font-family: var(--fonte-titulo); font-size: 1.7rem; font-weight: 600; color: var(--dourado); }
+.logo__sub { font-size: 0.72rem; color: var(--neutro); letter-spacing: 0.04em; }
+
+.nav { display: flex; align-items: center; gap: 1.6rem; }
+.nav a:not(.btn) { font-size: 0.95rem; color: var(--marfim); position: relative; padding-block: 4px; }
+.nav a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 1px; background: var(--dourado);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+}
+.nav a:not(.btn):hover::after { transform: scaleX(1); }
+
+.menu-btn { display: none; background: none; border: 0; width: 44px; height: 44px; cursor: pointer; position: relative; }
+.menu-btn span {
+  position: absolute; left: 10px; right: 10px; height: 1.5px; background: var(--marfim);
+  transition: transform 0.3s, top 0.3s;
+}
+.menu-btn span:first-child { top: 18px; }
+.menu-btn span:last-child { top: 26px; }
+.menu-btn[aria-expanded="true"] span:first-child { top: 22px; transform: rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:last-child { top: 22px; transform: rotate(-45deg); }
+
+/* ---------- Apresentação (hero) ---------- */
+.hero {
+  min-height: 100svh;
+  display: flex; align-items: center;
+  padding: 110px 0 4rem;
+  background: radial-gradient(60% 60% at 80% 45%, rgba(200, 164, 93, 0.12), transparent 70%), var(--preto);
+}
+.hero__inner { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.hero__linha { color: var(--dourado); margin-bottom: 1.25rem; }
+.hero h1 { margin-bottom: 1.5rem; }
+.hero__desc { font-size: 1.2rem; max-width: 46ch; margin-bottom: 2.2rem; }
+.hero__acoes { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+.hero__imagem .media { border-radius: 999px 999px 0 0; border: 1px solid var(--dourado); padding: 0; }
+.hero__imagem { position: relative; }
+.hero__imagem::before {              /* moldura dourada deslocada, atrás do arco */
+  content: ""; position: absolute; inset: 14px -14px -14px 14px;
+  border: 1px solid var(--linha); border-radius: 999px 999px 0 0; z-index: -1;
+}
+
+/* Única animação de entrada do site: o hero aparece em sequência */
+@keyframes entrar { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.hero__linha, .hero h1, .hero__desc, .hero__acoes, .hero__imagem { animation: entrar 0.9s ease both; }
+.hero h1 { animation-delay: 0.12s; }
+.hero__desc { animation-delay: 0.24s; }
+.hero__acoes { animation-delay: 0.36s; }
+.hero__imagem { animation-delay: 0.3s; }
+
+/* ---------- Sobre ---------- */
+.sobre { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.sobre__texto h2 { margin-bottom: 1.5rem; }
+.sobre__texto .link { display: inline-block; margin-top: 0.5rem; }
+
+/* ---------- Grades e cards ---------- */
+.grade { display: grid; gap: 1.5rem; }
+.grade--servicos { grid-template-columns: repeat(3, 1fr); }
+.grade--pros { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+.grade--dif { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+
+.card { background: var(--grafite); border: 1px solid var(--linha); transition: border-color 0.3s; }
+.card:hover { border-color: var(--dourado); }
+.card .media { border-bottom: 1px solid var(--linha); }
+.card__corpo { padding: 1.5rem 1.5rem 1.75rem; }
+.card__corpo h3 { margin-bottom: 0.6rem; }
+.card__corpo p { font-size: 0.97rem; margin-bottom: 1.25rem; }
+.preco { color: var(--dourado); font-weight: 500; font-size: 0.95rem; }
+
+/* ---------- Galeria ---------- */
+.galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.galeria .media { aspect-ratio: 1; }
+.galeria__destaque { grid-column: span 2; grid-row: span 2; aspect-ratio: auto !important; }
+
+/* ---------- Profissionais ---------- */
+.pro { text-align: center; }
+.pro .media { margin-bottom: 1.25rem; border: 1px solid var(--linha); border-bottom: 0; }
+.pro p { margin: 0.35rem auto 0; font-size: 0.95rem; }
+
+/* ---------- Diferenciais ---------- */
+.dif { border-top: 1px solid var(--dourado); padding-top: 1.25rem; }
+.dif h3 { margin-bottom: 0.7rem; }
+.dif p { font-size: 0.97rem; margin: 0; }
+
+/* ---------- Localização ---------- */
+.local { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
+.local__horario { margin-bottom: 1.75rem; }
+.mapa { border: 1px solid var(--linha); aspect-ratio: 4/3; background: var(--grafite); }
+.mapa iframe { width: 100%; height: 100%; border: 0; filter: grayscale(0.85) contrast(1.05); }
+
+/* ---------- Contato ---------- */
+.contato__botoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+/* ---------- Rodapé ---------- */
+.rodape { border-top: 1px solid var(--linha); padding-top: 3.5rem; font-size: 0.95rem; }
+.rodape__inner { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.rodape p { margin: 0.6rem 0 0; font-size: 0.92rem; }
+.rodape nav { display: grid; grid-template-columns: repeat(2, auto); gap: 0.5rem 2.5rem; align-content: start; }
+.rodape nav a { color: var(--neutro); transition: color 0.25s; }
+.rodape nav a:hover { color: var(--dourado); }
+.rodape__fim {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  margin-top: 2.5rem; padding-block: 1.5rem; border-top: 1px solid var(--linha);
+}
+.rodape__fim p { margin: 0; font-size: 0.85rem; max-width: none; }
+
+/* ---------- Aviso (links demonstrativos) ---------- */
+.aviso {
+  position: fixed; left: 50%; bottom: 1.5rem; z-index: 100;
+  transform: translate(-50%, 20px);
+  background: var(--marfim); color: var(--preto);
+  padding: 0.85rem 1.4rem; font-size: 0.92rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  width: max-content; max-width: calc(100% - 2rem);
+}
+.aviso.ativo { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Botão flutuante do WhatsApp ---------- */
+.zap {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 90;
+  width: 58px; height: 58px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.25s, background 0.25s;
+}
+.zap svg { width: 30px; height: 30px; }
+.zap:hover { background: #1ebe5a; transform: scale(1.06); }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 960px) {
+  .grade--servicos, .grade--pros { grid-template-columns: repeat(2, 1fr); }
+  .grade--dif { grid-template-columns: repeat(2, 1fr); }
+  .hero__inner, .sobre, .local { grid-template-columns: 1fr; }
+  .hero__imagem { max-width: 380px; }
+  .sobre .media { max-width: 420px; }
+
+  .menu-btn { display: block; }
+  .nav {
+    position: fixed; inset: 76px 0 auto 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: rgba(0, 0, 0, 0.97);
+    border-bottom: 1px solid var(--linha);
+    padding: 0.5rem 1.25rem 1.5rem;
+    transform: translateY(-120%); visibility: hidden;
+    transition: transform 0.35s, visibility 0.35s;
+  }
+  .nav.aberto { transform: none; visibility: visible; }
+  .nav a:not(.btn) { padding: 0.9rem 0; border-bottom: 1px solid var(--linha); }
+  .nav a:not(.btn)::after { display: none; }
+  .nav__cta { margin-top: 1.25rem; padding: 0.95rem; }
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 600px) {
+  body { font-size: 1rem; }
+  .grade--servicos, .grade--pros, .grade--dif { grid-template-columns: 1fr; }
+  .grade--pros .pro { max-width: 320px; margin-inline: auto; }
+  .galeria { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .galeria__destaque { grid-column: span 2; grid-row: auto; aspect-ratio: 4/3 !important; }
+  .hero__acoes .btn, .contato__botoes .btn { width: 100%; }
+  .rodape__fim { flex-direction: column; }
+}
+
+/* ---------- Respeita quem desativa animações no aparelho ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
